@@ -147,3 +147,53 @@ limite_ex_clientes = df_ex_clientes['Credit_Limit'].mean()
 
 # Formatação do valor monetário
 limite_ex_clientes = locale.currency(limite_ex_clientes, grouping=True)
+
+# Cria uma instância do Gmail
+usuario = yagmail.SMTP(user=usuario_email, password=senha_email)
+
+# Campos do e-mail
+destinatarios = dados_sensiveis['to']
+copia = dados_sensiveis['cc']
+copia_oculta = dados_sensiveis['bcc']
+
+# Assunto do e-mail
+assunto = 'Relatório de Clientes - Attrited Customers'
+
+# Corpo do e-mail
+mensagem = f'''
+Olá! Tudo bem?
+
+Conforme solicitado, levantei os principais indicadores de nossos clientes para ver o impacto dos attrited customers.
+
+Atualmente, temos a seguinte divisão na base de clientes:
+
+{resumo_status}
+
+Com relação ao número de clientes ativos em cada categoria de cartão de crédito, verifiquei esta distribuição:
+
+{resumo_categoria_cartao}
+
+O tempo médio de permanência dos clientes é de {tempo_medio_permanecia:.1f} meses.
+
+Por fim, verifiquei que o limite médio de crédito para cada categoria de cliente e descobri que a diferença era pouca.
+
+- Limite geral (todos os clientes): {limite_todos_clientes}
+- Limite ex-clientes: {limite_ex_clientes}
+
+Segue em anexo o relatório completo para mais detalhes. Caso tenha alguma dúvida, entre em contato.
+
+Att.,
+Diego
+'''
+
+# Anexos
+anexo = 'BankChurners.csv'
+
+usuario.send(
+    to=destinatarios,
+    cc=copia,
+    bcc=copia_oculta,
+    subject=assunto,
+    contents=mensagem,
+    attachments=anexo
+    )
