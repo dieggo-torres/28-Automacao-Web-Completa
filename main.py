@@ -105,3 +105,45 @@ with zipfile.ZipFile(r'C:\Users\diego\Downloads\archive.zip', 'r') as pasta_zipa
 
 # Cria um dataframe
 df_clientes = pd.read_csv('BankChurners.csv')
+
+# Conta o número de clientes ativos e o número de clientes em disputa
+resumo_status = df_clientes.groupby('Attrition_Flag')['Attrition_Flag'].count()
+
+# Converte a tabela em uma string
+resumo_status = resumo_status.to_string()
+
+# Filtro de clientes ativos
+filtro_clientes_ativos = df_clientes['Attrition_Flag'] == 'Existing Customer'
+
+# Dataframe só com os clientes ativos
+df_clientes_ativos = df_clientes[filtro_clientes_ativos]
+
+# Conta o número de clientes ativos para cada categoria de cartão de crédito
+resumo_categoria_cartao = df_clientes_ativos.groupby('Card_Category')['Card_Category'].count()
+
+# Renomeia a coluna
+resumo_categoria_cartao.index.names = ["Clientes Ativos por Categoria de Cartão"]
+
+# Converte a tabela em uma string
+resumo_categoria_cartao = resumo_categoria_cartao.to_string()
+
+# Calcula o tempo médio de permanência dos clientes
+tempo_medio_permanecia = df_clientes['Months_on_book'].mean()
+
+# Valor médio de limite de todos os clientes
+limite_todos_clientes = df_clientes['Credit_Limit'].mean()
+
+# Formatação do valor monetário
+limite_todos_clientes = locale.currency(limite_todos_clientes, grouping=True)
+
+# Filtro de ex-clientes
+filtro_ex_clientes = df_clientes['Attrition_Flag'] == 'Attrited Customer'
+
+# Dataframe só com os ex-clientes
+df_ex_clientes = df_clientes[filtro_ex_clientes]
+
+# Valor médio de limite para ex-clientes
+limite_ex_clientes = df_ex_clientes['Credit_Limit'].mean()
+
+# Formatação do valor monetário
+limite_ex_clientes = locale.currency(limite_ex_clientes, grouping=True)
