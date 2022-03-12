@@ -1,0 +1,20 @@
+{
+    "autenticacao_kaggle": {
+        "usuario": "usuariokaggle@email.com",
+        "senha": "senhaKaggle"
+    },
+    "autenticacao_gmail": {
+        "usuario_gmail": "usuario@gmail.com",
+        "senha_gmail": "senhaGmail"
+    },
+    "to": [
+        "colega@email.com",
+        "outrocolega@email.com"
+    ],
+    "cc": [
+        "amigo@email.com"
+    ],
+    "bcc": [
+        "outroamigo@email.com"
+    ]
+}
