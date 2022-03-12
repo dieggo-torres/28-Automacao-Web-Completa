@@ -32,8 +32,8 @@ with open('segredos.json') as segredos:
     dados_sensiveis = json.load(segredos)
 
 # Obtém os dados de autenticação
-usuario_email = dados_sensiveis['autenticacao_email']['usuario']
-senha_email = dados_sensiveis['autenticacao_email']['senha']
+usuario_email = dados_sensiveis['autenticacao_kaggle']['usuario']
+senha_email = dados_sensiveis['autenticacao_kaggle']['senha']
 
 # Cria uma instância do Google Chrome
 navegador = webdriver.Chrome()
@@ -148,8 +148,12 @@ limite_ex_clientes = df_ex_clientes['Credit_Limit'].mean()
 # Formatação do valor monetário
 limite_ex_clientes = locale.currency(limite_ex_clientes, grouping=True)
 
+# Dados de autenticação do Gmail
+usuario_gmail = dados_sensiveis['autenticacao_gmail']['usuario_gmail']
+senha_gmail = dados_sensiveis['autenticacao_gmail']['senha_gmail']
+
 # Cria uma instância do Gmail
-usuario = yagmail.SMTP(user=usuario_email, password=senha_email)
+usuario = yagmail.SMTP(user=usuario_gmail, password=senha_gmail)
 
 # Campos do e-mail
 destinatarios = dados_sensiveis['to']
