@@ -98,3 +98,10 @@ clicar_elemento('a.sc-htmcrh.emRwHY', 0)
 
 # Espera 10s para a pasta ser baixada
 time.sleep(10)
+
+# Extrai o arquivo da pasta zipada para o diretório deste arquivo
+with zipfile.ZipFile(r'C:\Users\diego\Downloads\archive.zip', 'r') as pasta_zipada:
+    pasta_zipada.extractall(Path.cwd())
+
+# Cria um dataframe
+df_clientes = pd.read_csv('BankChurners.csv')
